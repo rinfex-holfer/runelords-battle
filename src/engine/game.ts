@@ -1,18 +1,6 @@
 import { TEMPLE_INITIAL_HP } from "../domain/constants"
-import { Card, GameState } from "../domain/types"
-
-const generateCards = (count: number) => {
-    const cards: Card[] = []
-    for (let i = 0; i < count; i++) {
-        cards.push({
-
-            id: i.toString(),
-            name: `Card ${i}`,
-            description: `Description ${i}`,
-        })
-    }
-    return cards
-}
+import { GameState } from "../domain/types"
+import { generateCards } from "./cards/cards"
 
 
 const createGame = () => {
@@ -26,7 +14,6 @@ const createGame = () => {
             wields: [],
             speed: 0,
             coord: { x: 0, y: 0 },
-
         },
         hero2: {
             type: 'hero',

@@ -1,24 +1,16 @@
-type GamePhase = 'Player1Turn' | 'Player2Turn' | 'GameOver' | 'Pause'
+import { GameCard } from './cards'
 
-
-export type Card = {
-    id: string
-    name: string
-    description: string
-}
+export type GamePhase = 'Player1Turn' | 'Player2Turn' | 'GameOver' | 'Pause'
 
 export type BodyPart = 'arm' | 'leg' | 'chest' | 'head'
-
 
 export type Armor = {
     bodyPart: BodyPart
     protection: number
 }
 
-
 export type Weapon = {}
 export type Shield = {}
-
 
 export type CharState = {
     limbs: {
@@ -36,26 +28,23 @@ export type CharState = {
     }
 }
 
-
 export type HeroState = CharState & {
     type: 'hero'
 }
-
 
 export type CreepState = CharState & {
     type: 'creep'
 }
 
-
 export type GameState = {
     phase: GamePhase
     temple1Hp: number
     temple2Hp: number
-    cardsQueue: Card[]
+    cardsQueue1: GameCard[]
+    cardsQueue2: GameCard[]
     hero1: HeroState
     hero2: HeroState
     creeps1: CreepState[]
     creeps2: CreepState[]
-
 }
 
