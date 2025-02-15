@@ -1,5 +1,6 @@
-import { GameCard } from "../../domain/cards"
-import { ROWS_COUNT, VISIBLE_CARDS_IN_ROW } from "../../domain/constants"
+import { ROWS_COUNT } from "../../../domain/constants"
+import { VISIBLE_CARDS_IN_ROW } from "../../../domain/constants"
+import { GameCard } from "../../../domain/cards"
 import { CardTemplates } from "./cardTemplates"
 
 export const generateCards = (count: number): GameCard[] => {

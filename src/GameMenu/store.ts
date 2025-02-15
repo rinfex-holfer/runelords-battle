@@ -1,14 +1,42 @@
-import { create } from "zustand";
-import { combine } from "zustand/middleware";
+import { GameState, useStore } from "../store";
+import { StateCreator } from 'zustand';
 
-type MenuType = 'main' | 'pause' | 'gameOver' | 'settings' | 'play'
+export type MenuType = 'main' | 'pause' | 'gameOver' | 'settings';
 
-export const useGameMenu = create(combine({
-    stack: [] as MenuType[],
-}, (set) => ({
-    openMenu: (menuType: MenuType) => set((state) => ({ stack: [...state.stack, menuType] })),
-    closeMenu: () => set((state) => ({ stack: state.stack.slice(0, -1) })),
-    clearMenuStack: () => set({ stack: [] }),
-})))
+export type GameMenuState = {
+    stack: MenuType[];
+}
 
-export const useCurrentMenu = () => useGameMenu((state) => state.stack[state.stack.length - 1])
+export type GameMenuActions = {
+    openMenu: (menuType: MenuType) => void;
+    closeMenu: () => void;
+    clearMenuStack: () => void;
+}
+
+type GameMenuSlice = {
+    initialState: GameMenuState;
+    actions: StateCreator<GameState, [], [], GameMenuActions>;
+}
+
+export const createGameMenuSlice: GameMenuSlice = {
+    initialState: {
+        stack: [],
+    },
+    actions: (set) => ({
+        openMenu: (menuType) =>
+            set((state) => ({ stack: [...state.stack, menuType] })),
+        closeMenu: () =>
+            set((state) => ({ stack: state.stack.slice(0, -1) })),
+        clearMenuStack: () => set({ stack: [] }),
+    })
+};
+
+// selectors
+export const useMenu = () => useStore((store) => ({
+    stack: store.stack,
+    currentMenu: store.stack[store.stack.length - 1],
+    openMenu: store.openMenu,
+    closeMenu: store.closeMenu,
+    clearMenuStack: store.clearMenuStack,
+}));
+

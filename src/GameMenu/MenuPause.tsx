@@ -1,8 +1,7 @@
 import Menu from "../components/Menu"
-import { useGameMenu } from "./store"
-
+import { useMenu } from "./store"
 export const MenuPause = () => {
-    const { closeMenu, openMenu, clearMenuStack } = useGameMenu()
+    const { closeMenu, openMenu, clearMenuStack } = useMenu()
 
     return <Menu>
         <Menu.Title>Pause</Menu.Title>

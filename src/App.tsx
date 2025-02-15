@@ -1,11 +1,10 @@
 import { useCallback } from 'react'
 import { GameMenu } from './GameMenu'
-import { useCurrentMenu, useGameMenu } from './GameMenu/store'
 import { useKey } from './utils/hooks/useKey'
+import { useMenu } from './GameMenu/store'
 
 function App() {
-  const { openMenu, closeMenu } = useGameMenu()
-  const currentMenu = useCurrentMenu()
+  const { openMenu, closeMenu, currentMenu } = useMenu()
 
   const onEscapePressed = useCallback(() => {
     if (currentMenu) {
@@ -14,7 +13,7 @@ function App() {
       openMenu('main')
     }
   }, [currentMenu, closeMenu, openMenu])
-  
+
   useKey('Escape', onEscapePressed)
 
   return (

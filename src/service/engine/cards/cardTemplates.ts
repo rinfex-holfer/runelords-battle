@@ -1,4 +1,4 @@
-import { GameCardTemplate } from "../../domain/cards"
+import { GameCardTemplate } from "../../../domain/cards"
 
 const CardLightningId = 'lightning' as const
 const CardFireballId = 'fireball' as const

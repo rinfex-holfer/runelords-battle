@@ -1,12 +1,11 @@
 import { Overlay } from "../components/Overlay"
-import { useCurrentMenu } from "./store"
 import { MenuMain } from "./MenuMain"
 import { MenuSettings } from "./MenuSettings"
 import { MenuPause } from "./MenuPause"
 import { MenuGameOver } from "./MenuGameOver"
-
+import { selectors } from "../store"
 export const GameMenu = () => {
-    const currentMenu = useCurrentMenu()
+    const currentMenu = selectors.useCurrentMenu()
 
     if (!currentMenu) return null
 
@@ -21,7 +20,7 @@ export const GameMenu = () => {
             case 'gameOver':
                 return <MenuGameOver />
             default:
-                return <MenuMain />
+                throw new Error(`Unknown menu: ${currentMenu}`)
         }
     }
 

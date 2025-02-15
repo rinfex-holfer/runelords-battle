@@ -1,7 +1,7 @@
-import { GameCard } from "../../domain/cards"
-import { VISIBLE_CARDS_IN_ROW } from "../../domain/constants"
-import { ROWS_COUNT } from "../../domain/constants"
-import { generateId } from "../../utils/generateId"
+import { GameCard } from "../../../domain/cards"
+import { VISIBLE_CARDS_IN_ROW } from "../../../domain/constants"
+import { ROWS_COUNT } from "../../../domain/constants"
+import { generateId } from "../../../utils/generateId"
 import { CardTemplates } from "./cardTemplates"
 
 export class CardsQueue {
@@ -70,5 +70,9 @@ export class CardsQueue {
     discardCard(card: GameCard): void {
         // Discard works the same as remove for now
         this.removeCard(card)
+    }
+
+    getState(): GameCard[] {
+        return this.cards
     }
 }

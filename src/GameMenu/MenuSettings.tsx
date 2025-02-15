@@ -1,8 +1,8 @@
 import Menu from "../components/Menu"
-import { useGameMenu } from "./store"
+import { useMenu } from "./store"
 
 export const MenuSettings = () => {
-    const { closeMenu } = useGameMenu()
+    const { closeMenu } = useMenu()
 
     return <Menu>
         <Menu.Title>Settings</Menu.Title>

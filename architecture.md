@@ -1,12 +1,20 @@
 # server-side
 temporarily in the same folder as the client
 
+## api (src/service/api.ts)
+API for client to interact with server.
+
 ## domain (src/domain)
 contains types, constants and general game util functions. Shared between client and server.
 
-## engine (src/engine)
+## GamesManager (src/service/GamesManager.ts)
+Creates, stores and deletes active games. Maintains connections between client and server.
 
-### Game (src/engine/Game.ts)
+## engine (src/service/engine)
+
+Engine of a game. Manages global state of a particular game with Game class, contains rules of a game, validation functions, etc.
+
+### Game (src/service/engine/Game.ts)
 contains id of particular game session
 acts as a container for managers - classes that handle different parts of the game
 
@@ -22,7 +30,15 @@ managers:
 - TempleManager - TODO
 - FieldManager - TODO
 
-## event bus
+## Game initiation:
+1. client creates a game through REST API
+2. server creates a game instance and returns its id to the client
+3. client establishes a WS connection to the server. For each client Game creates an instance of EventChannel and communicates with the client through it.
+4. server initializes a game instance
+5. server sends initial state to the client
+6. server and client start exchanging events through event channel
+
+## event channel
 client <-> server communication is done via WS
 
 It is implemented through Two-Phase Updates:
