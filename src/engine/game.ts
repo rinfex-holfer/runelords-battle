@@ -2,7 +2,9 @@ import { GameCard } from "../domain/cards"
 import { TEMPLE_INITIAL_HP } from "../domain/constants"
 import { GameState } from "../domain/types"
 import { generateCards } from "./cards/cards"
+import { CardsQueue } from "./cards/СardsQueue"
 
+// TODO this is serialized, so it won't be in enginer - only on client side
 const createGame = () => {
     const gameState: GameState = {
         phase: 'Player1Turn',
@@ -54,5 +56,11 @@ type GameEvent = {
 
 export class Game {
     private events: GameEvent[] = []
+    private cardsQueue1: CardsQueue
+    private cardsQueue2: CardsQueue
 
+    constructor() {
+        this.cardsQueue1 = new CardsQueue()
+        this.cardsQueue2 = new CardsQueue()
+    }
 }
