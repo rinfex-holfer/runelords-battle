@@ -25,7 +25,7 @@ export class GameClient {
         })
     }
 
-    sendEvent<T extends ClientActionKey>(action: T, data: ClientActionData[T]) {
+    sendAction<T extends ClientActionKey>(action: T, data: ClientActionData[T]) {
         if (!this.eventChannel) {
             throw new Error('Event channel not connected')
         }

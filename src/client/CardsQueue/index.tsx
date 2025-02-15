@@ -5,9 +5,12 @@ import { useCardsQueue } from './store';
 import { ROWS_COUNT, VISIBLE_CARDS_IN_ROW } from '../../domain/constants';
 import { Card } from './Card';
 import { GameCard } from '../../domain/cards';
+import { useGameClient } from '../GameClient/store';
+import { ClientAction } from '../../EventChannel/types';
 
 export const CardsQueue: FC = () => {
     const { cards } = useCardsQueue();
+    const { gameClient } = useGameClient();
 
     const rows = useMemo(() => {
         const rowsArray: GameCard[][] = Array.from({ length: ROWS_COUNT }, () => []);
@@ -23,12 +26,19 @@ export const CardsQueue: FC = () => {
         );
     }, [cards]);
 
+    const onCardClick = (cardId: string) => {
+        gameClient?.sendAction(ClientAction.PlayCard, {
+            cardId,
+            payload: {}
+        })
+    }
+
     return (
         <CardsContainer>
             {rows.map((rowCards, index) => (
                 <CardsRow key={index}>
                     {rowCards.map(card => (
-                        <Card key={card.id} card={card} />
+                        <Card key={card.id} card={card} onClick={onCardClick} />
                     ))}
                 </CardsRow>
             ))}
