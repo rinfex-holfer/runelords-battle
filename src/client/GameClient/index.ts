@@ -1,7 +1,7 @@
-import { EventChannel } from "../EventChannel"
-import { ClientActionKey, ClientActionData, GameEventData, GameEventKey } from "../EventChannel/types"
-import api from "../service/api"
-import { generateId } from "../utils/generateId"
+import { EventChannel } from "../../EventChannel"
+import { ClientActionKey, ClientActionData, GameEventData, GameEventKey } from "../../EventChannel/types"
+import api from "../../service/api"
+import { generateId } from "../../utils/generateId"
 
 // client-side game instance
 export class GameClient {

@@ -3,9 +3,10 @@ import { MenuMain } from "./MenuMain"
 import { MenuSettings } from "./MenuSettings"
 import { MenuPause } from "./MenuPause"
 import { MenuGameOver } from "./MenuGameOver"
-import { selectors } from "../store"
+import { useMenu } from "./store"
+
 export const GameMenu = () => {
-    const currentMenu = selectors.useCurrentMenu()
+    const { currentMenu } = useMenu()
 
     if (!currentMenu) return null
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { GameMenu } from './GameMenu'
-import { useKey } from './utils/hooks/useKey'
+import { useKey } from '../utils/hooks/useKey'
 import { useMenu } from './GameMenu/store'
 
 function App() {
