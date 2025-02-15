@@ -7,4 +7,3 @@ export const Overlay: FC<PropsWithChildren> = ({ children }) => {
         </div>
     </div>
 }
-

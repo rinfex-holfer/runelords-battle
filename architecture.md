@@ -37,62 +37,64 @@ It is implemented through Two-Phase Updates:
 }
 ```
 
-2. server validates the action, processes it, and sends result of action with sequence of visuals and state updates:
- effects: {
+2. server validates the action, processes it, and sends back sequence of visuals and state updates:
+```
+effects: {
     visuals: [
-      {
-        id: 'card-play',
-        type: 'card-animation',
-        params: {
-          cardId: 'lightning-123',
-          sequence: [
-            { type: 'hover', duration: 400 },
-            { type: 'glow', duration: 300 },
-            { type: 'fade-out', duration: 200 }
-          ]
-        }
-      },
-      {
-        id: 'lightning-strike',
-        type: 'projectile',
-        params: {
-          effect: 'lightning',
-          from: { selector: '#card-lightning-123' },
-          to: { selector: '#creep-456' },
-          duration: 600
-        }
-      },
-      {
-        id: 'creep-damage',
-        type: 'creature-effect',
-        params: {
-          targetId: 'creep-456',
-          sequence: [
-            { type: 'damage-flash', duration: 200 },
-            { type: 'damage-numbers', value: -3, duration: 500 },
-            { type: 'death-animation', duration: 800 }
-          ]
-        }
-      },
+        {
+            id: 'card-play',
+            type: 'card-animation',
+            params: {
+                cardId: 'lightning-123',
+                sequence: [
+                    { type: 'hover', duration: 400 },
+                    { type: 'glow', duration: 300 },
+                    { type: 'fade-out', duration: 200 }
+                ]
+            }
+        },
+        {
+            id: 'lightning-strike',
+            type: 'projectile',
+            params: {
+                effect: 'lightning',
+                from: { selector: '#card-lightning-123' },
+                to: { selector: '#creep-456' },
+                duration: 600
+            }
+        },
+        {
+            id: 'creep-damage',
+            type: 'creature-effect',
+            params: {
+                targetId: 'creep-456',
+                sequence: [
+                    { type: 'damage-flash', duration: 200 },
+                    { type: 'damage-numbers', value: -3, duration: 500 },
+                    { type: 'death-animation', duration: 800 }
+                ]
+            }
+        },
     ],
     state: [
-      {
-        type: 'remove-card',
-        path: ['cardsQueue1', 'lightning-123']
-      },
-      {
-        type: 'remove-creep',
-        path: ['creeps2', 'creep-456']
-      },
-      {
-        type: 'add-card',
-        path: ['cardsQueue1'],
-        value: {
-          id: 'new-card-789',
-          templateId: 'fireball',
-          row: 2,
-          col: 3
+        {
+            type: 'remove-card',
+            path: ['cardsQueue1', 'lightning-123']
+        },
+        {
+            type: 'remove-creep',
+            path: ['creeps2', 'creep-456']
+        },
+        {
+            type: 'add-card',
+            path: ['cardsQueue1'],
+            value: {
+                id: 'new-card-789',
+                templateId: 'fireball',
+                row: 2,
+                col: 3
+            }
         }
-      }
     ]
-  }
+}
+```
