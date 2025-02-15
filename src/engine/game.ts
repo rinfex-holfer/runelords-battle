@@ -1,7 +1,7 @@
+import { GameCard } from "../domain/cards"
 import { TEMPLE_INITIAL_HP } from "../domain/constants"
 import { GameState } from "../domain/types"
 import { generateCards } from "./cards/cards"
-
 
 const createGame = () => {
     const gameState: GameState = {
@@ -25,8 +25,34 @@ const createGame = () => {
         creeps1: [],
         creeps2: [],
         temple1Hp: TEMPLE_INITIAL_HP,
-        temple2Hp: TEMPLE_INITIAL_HP, 
+        temple2Hp: TEMPLE_INITIAL_HP,
     }
 
     return gameState
+}
+
+const GameEventKeys = {
+    CardsAdded: 'CardsAdded',
+    CardsRemoved: 'CardsRemoved',
+} as const
+
+type GameEventKey = typeof GameEventKeys[keyof typeof GameEventKeys]
+
+type GameEventData = {
+    [GameEventKeys.CardsAdded]: {
+        cards: GameCard[]
+    }
+    [GameEventKeys.CardsRemoved]: {
+        ids: string[]
+    }
+}
+
+type GameEvent = {
+    key: GameEventKey,
+    data: GameEventData[GameEventKey]
+}
+
+export class Game {
+    private events: GameEvent[] = []
+
 }
