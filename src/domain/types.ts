@@ -13,6 +13,7 @@ export type Weapon = {}
 export type Shield = {}
 
 export type CharState = {
+    playerId: string
     limbs: {
         bodyPart: BodyPart
         armor: Armor | null
@@ -38,13 +39,9 @@ export type CreepState = CharState & {
 
 export type GameState = {
     phase: GamePhase
-    temple1Hp: number
-    temple2Hp: number
-    cardsQueue1: GameCard[]
-    cardsQueue2: GameCard[]
-    hero1: HeroState
-    hero2: HeroState
-    creeps1: CreepState[]
-    creeps2: CreepState[]
+    temples: { hp: number, playerId: string }[]
+    cardsQueues: { cards: GameCard[], playerId: string }[]
+    heroes: HeroState[]
+    creeps: CreepState[]
 }
 

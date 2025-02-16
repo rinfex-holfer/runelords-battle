@@ -1,15 +1,15 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { CardsContainer } from './CardsContainer';
 import { CardsRow } from './CardsRow';
-import { useCardsQueue } from './store';
+import { useCardsQueue } from './selectors';
 import { ROWS_COUNT, VISIBLE_CARDS_IN_ROW } from '../../domain/constants';
 import { Card } from './Card';
 import { GameCard } from '../../domain/cards';
-import { useGameClient } from '../GameClient/store';
-import { ClientAction } from '../../EventChannel/types';
+import { useGameClient } from '../GameClient/selectors';
+import { ClientAction, GameEvent, GameEventData } from '../../EventChannel/types';
 
 export const CardsQueue: FC = () => {
-    const { cards } = useCardsQueue();
+    const { cards, setCards } = useCardsQueue();
     const { gameClient } = useGameClient();
 
     const rows = useMemo(() => {
@@ -32,6 +32,15 @@ export const CardsQueue: FC = () => {
             payload: {}
         })
     }
+
+    const onQueueCreated = useCallback((data: GameEventData[typeof GameEvent.QueueCreated]) => {
+        setCards(data.cards)
+    }, [setCards])
+
+    useEffect(() => {
+        gameClient?.onGameEvent(GameEvent.QueueCreated, onQueueCreated)
+        return () => gameClient?.unsubscribeFromGameEvent(GameEvent.QueueCreated, onQueueCreated)
+    }, [gameClient, onQueueCreated])
 
     return (
         <CardsContainer>

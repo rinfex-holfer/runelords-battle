@@ -1,4 +1,4 @@
-import { GameState, useStore } from "../store";
+import { GameState } from "../store";
 import { StateCreator } from 'zustand';
 
 export type MenuType = 'main' | 'pause' | 'gameOver' | 'settings';
@@ -30,13 +30,3 @@ export const createGameMenuSlice: GameMenuSlice = {
         clearMenuStack: () => set({ stack: [] }),
     })
 };
-
-// selectors
-export const useMenu = () => useStore((store) => ({
-    stack: store.stack,
-    currentMenu: store.stack[store.stack.length - 1],
-    openMenu: store.openMenu,
-    closeMenu: store.closeMenu,
-    clearMenuStack: store.clearMenuStack,
-}));
-

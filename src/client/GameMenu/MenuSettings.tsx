@@ -1,5 +1,5 @@
 import Menu from "../components/Menu"
-import { useMenu } from "./store"
+import { useMenu } from "./selectors"
 
 export const MenuSettings = () => {
     const { closeMenu } = useMenu()

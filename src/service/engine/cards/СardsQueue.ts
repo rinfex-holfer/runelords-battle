@@ -1,14 +1,21 @@
-import { GameCard } from "../../../domain/cards"
+import { CardTemplateId, CardTemplateIdMap, GameCard, getCardTemplateById } from "../../../domain/cards"
 import { VISIBLE_CARDS_IN_ROW } from "../../../domain/constants"
 import { ROWS_COUNT } from "../../../domain/constants"
 import { generateId } from "../../../utils/generateId"
-import { CardTemplates } from "./cardTemplates"
+import { getRndItemFromMap } from "../../../utils/rnd"
 
 export class CardsQueue {
-    private cards: GameCard[] = []
+    private cards: GameCard[]
 
-    constructor(cards: GameCard[] = []) {
+    playerId: string
+
+    constructor(playerId: string, cards: GameCard[] = []) {
+        this.playerId = playerId
         this.cards = cards
+    }
+
+    getCard(cardId: string): GameCard | undefined {
+        return this.cards.find(card => card.id === cardId)
     }
 
     getCardsInRow(row: number): GameCard[] {
@@ -19,7 +26,8 @@ export class CardsQueue {
         const cards: GameCard[] = []
 
         for (let i = 0; i < count; i++) {
-            const randomTemplate = CardTemplates[Math.floor(Math.random() * CardTemplates.length)]
+            const randomTemplateId = getRndItemFromMap(CardTemplateIdMap)
+            const randomTemplate = getCardTemplateById(randomTemplateId)
             const row = Math.floor(i / VISIBLE_CARDS_IN_ROW) % ROWS_COUNT
             const col = i % VISIBLE_CARDS_IN_ROW
 
@@ -33,7 +41,7 @@ export class CardsQueue {
         return cards
     }
 
-    createCard(templateId: string, row: number, col: number): GameCard {
+    createCard(templateId: CardTemplateId, row: number, col: number): GameCard {
         return {
             id: generateId(),
             templateId,
@@ -72,7 +80,15 @@ export class CardsQueue {
         this.removeCard(card)
     }
 
-    getState(): GameCard[] {
-        return this.cards
+    getState(): CardsQueueState {
+        return {
+            cards: this.cards,
+            playerId: this.playerId
+        }
     }
+}
+
+export type CardsQueueState = {
+    cards: GameCard[]
+    playerId: string
 }

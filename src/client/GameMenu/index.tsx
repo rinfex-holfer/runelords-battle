@@ -3,7 +3,7 @@ import { MenuMain } from "./MenuMain"
 import { MenuSettings } from "./MenuSettings"
 import { MenuPause } from "./MenuPause"
 import { MenuGameOver } from "./MenuGameOver"
-import { useMenu } from "./store"
+import { useMenu } from "./selectors"
 
 export const GameMenu = () => {
     const { currentMenu } = useMenu()

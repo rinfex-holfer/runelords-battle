@@ -53,7 +53,37 @@ It is implemented through Two-Phase Updates:
 }
 ```
 
-2. server validates the action, processes it, and sends back sequence of visuals and state updates:
+2. server validates the action and processes it. Example:
+
+2.1 Game has CardsQueue instance for each player.
+initial serialized state (Game has getState() method that gathers states from all managers)
+```
+cardsQueues: [
+        {
+            playerId: 'player1', 
+            cards: [
+                {id: 'lightning-123', templateId: 'lightning', row: 0, col: 0}, 
+                {id: 'fireball-456', templateId: 'fireball', row: 0, col: 1}
+            ]
+        }
+    ]
+```
+
+2.2 client sends action:
+```
+{
+    event: 'card-played',
+    payload: {
+      cardId: 'lightning-123',
+      targetId: 'creep-456'
+    }
+}
+
+2.3. Game validates the action: it should happen in GameRules class, primarily with static methods.
+
+2.4. Game processes the action: manager methods are called, their internal state is updated, and a sequence of events is produced. Again, where should it happen - in game, in manager, or in some GameRules class, or in other class? How to make this step from here, to next (described below) accummulation of changes?
+
+3. server sends back sequence of visuals and state updates:
 ```
 effects: {
     visuals: [
@@ -95,7 +125,7 @@ effects: {
     state: [
         {
             type: 'remove-card',
-            path: ['cardsQueue1', 'lightning-123']
+            path: ['cardQueues', 'player1', 'lightning-123']
         },
         {
             type: 'remove-creep',
@@ -103,7 +133,7 @@ effects: {
         },
         {
             type: 'add-card',
-            path: ['cardsQueue1'],
+            path: ['cardQueues', 'player1'],
             value: {
                 id: 'new-card-789',
                 templateId: 'fireball',

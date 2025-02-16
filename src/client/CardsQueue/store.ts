@@ -1,4 +1,4 @@
-import { GameState, useStore } from "../store";
+import { GameState } from "../store";
 import { StateCreator } from 'zustand';
 import { GameCard } from "../../domain/cards";
 
@@ -41,12 +41,3 @@ export const createCardsQueueSlice: CardsQueueSlice = {
         setCards: (cards) => set({ cards }),
     })
 };
-
-// selectors
-export const useCardsQueue = () => useStore((store) => ({
-    cards: store.cards,
-    addCard: store.addCard,
-    removeCard: store.removeCard,
-    updateCard: store.updateCard,
-    setCards: store.setCards,
-}));

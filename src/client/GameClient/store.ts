@@ -1,5 +1,5 @@
 import { GameClient } from ".";
-import { GameState, useStore } from "../store";
+import { GameState } from "../store";
 import { StateCreator } from 'zustand';
 
 export type GameClientState = {
@@ -23,9 +23,3 @@ export const createGameClientSlice: GameClientSlice = {
         setGameClient: (gameClient) => set({ gameClient }),
     }),
 };
-
-// selectors
-export const useGameClient = () => useStore((store) => ({
-    gameClient: store.gameClient,
-    setGameClient: store.setGameClient,
-}));

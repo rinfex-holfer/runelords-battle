@@ -13,4 +13,4 @@ export const MenuGameOver = () => {
         <Menu.Item onClick={() => openMenu('main')}>Main Menu</Menu.Item>
         <Menu.Item onClick={() => { }}>Exit</Menu.Item>
     </Menu>
-} 
+}

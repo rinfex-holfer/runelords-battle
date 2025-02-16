@@ -2,7 +2,7 @@ import { EventChannel } from "../EventChannel"
 import { gamesManager } from "./GamesManager"
 
 const api = {
-    createGame: () => {
+    createNewGame: () => {
         const game = gamesManager.createGame()
         return game.id
     },
