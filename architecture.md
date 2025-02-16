@@ -78,7 +78,7 @@ cardsQueues: [
       targetId: 'creep-456'
     }
 }
-
+```
 2.3. Game validates the action: it should happen in GameRules class, primarily with static methods.
 
 2.4. Game processes the action: manager methods are called, their internal state is updated, and a sequence of events is produced. Again, where should it happen - in game, in manager, or in some GameRules class, or in other class? How to make this step from here, to next (described below) accummulation of changes?
